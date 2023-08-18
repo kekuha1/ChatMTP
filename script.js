@@ -3,6 +3,12 @@ const submitButton = document.querySelector("#submit");
 const outPutElement = document.querySelector("#output");
 const inputElement = document.querySelector("input");
 const historyElement = document.querySelector(".history");
+const buttonElement = document.querySelector("button");
+
+function changeInput(value) {
+  const inputElement = document.querySelector("input");
+  inputElement.value = value;
+}
 
 async function getMessage() {
   console.log("clicked");
@@ -29,6 +35,9 @@ async function getMessage() {
     if (data.choices[0].message.content) {
       const pElement = document.createElement("p");
       pElement.textContent = inputElement.value;
+      pElement.addEventListener("click", () =>
+        changeInput(pElement.textContent)
+      );
       historyElement.append(pElement);
     }
   } catch (error) {
@@ -37,3 +46,9 @@ async function getMessage() {
 }
 
 submitButton.addEventListener("click", getMessage);
+
+function clearInput() {
+  inputElement.value = "";
+}
+
+buttonElement.addEventListener("click", clearInput);
